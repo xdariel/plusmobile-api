@@ -9,6 +9,7 @@ import { FilesModule } from './shared/modules/files/files.module';
 import { NotificationModule } from './shared/modules/notification/notification.module';
 
 import { FixturesModule } from './shared/modules/fixtures/fixtures.module';
+import { CategoryModule } from './modules/category/category.module';
 
 
 
@@ -24,7 +25,8 @@ import { FixturesModule } from './shared/modules/fixtures/fixtures.module';
     AuthModule,
     FilesModule,
     NotificationModule,
-    FixturesModule
+    FixturesModule,
+    CategoryModule,
    
   
 

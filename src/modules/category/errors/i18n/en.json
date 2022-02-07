@@ -1,0 +1,5 @@
+{
+  "CategoryWithIdDoesNotExist": "Category with id: '%id%' does not exists",
+  "CategoryNameUsed": "Category with name: '%name%' already exists",
+  "CategoryFieldUsed": "The value: %value% exists in the database, for the field: %field%"
+}
