@@ -1,0 +1,6 @@
+{
+  "VendorsWithIdDoesNotExist": "Vendors con id: '%id%' no existe",
+  "VendorsNameUsed": "Vendors con nombre: '%name%' ya se encuentra registrada",
+  "VendorsFieldUsed": "Existe en la base de datos el valor: '%value%' para el campo %field%",
+  "VendorsFieldInvalidValue": "El valor: %value% es inválido, para el campo: %field%"
+}

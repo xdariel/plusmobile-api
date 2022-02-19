@@ -6,6 +6,6 @@ import { OrderByType } from 'src/shared/modules/graphql/dto/input/orderby-enum.i
 export class OrderByCategoryInput {
   @Field(() => OrderByType, { nullable: true })  name?: OrderByType;
   @Field(() => OrderByType, { nullable: true })  description?: OrderByType;
-
+  @Field(() => OrderByType, { nullable: true })  order?: OrderByType;
   @Field(() => OrderByType, { nullable: true })  createdAt?: OrderByType;
 }

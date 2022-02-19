@@ -1,0 +1,5 @@
+{
+  "SupportTicketWithIdDoesNotExist": "SupportTicket con id: '%id%' no existe",
+  "SupportTicketNameUsed": "SupportTicket con nombre: '%name%' ya se encuentra registrada",
+  "SupportTicketFieldUsed": "Existe en la base de datos el valor: '%value%' para el campo %field%"
+}

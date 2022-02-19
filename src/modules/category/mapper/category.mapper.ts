@@ -27,6 +27,7 @@ export class CategoryMapper implements BaseMapper<CategoryEntity> {
   persistent2Dto({ updatedBy, createdBy, ...rest }: CategoryEntity): CategoryResponse {
     return {
       ...rest,
+      banner: rest.banner ? { id: rest.banner } : undefined,
       createdBy: createdBy ? { id: createdBy } : undefined,
       updatedBy: updatedBy ? { id: updatedBy } : undefined,
     };

@@ -1,0 +1,5 @@
+{
+  "FaqCategoryWithIdDoesNotExist": "FaqCategory con id: '%id%' no existe",
+  "FaqCategoryNameUsed": "FaqCategory con nombre: '%name%' ya se encuentra registrada",
+  "FaqCategoryFieldUsed": "Existe en la base de datos el valor: '%value%' para el campo %field%"
+}

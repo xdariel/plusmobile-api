@@ -1,0 +1,5 @@
+{
+  "FaqWithIdDoesNotExist": "Faq with id: '%id%' does not exists",
+  "FaqNameUsed": "Faq with name: '%name%' already exists",
+  "FaqFieldUsed": "The value: %value% exists in the database, for the field: %field%"
+}

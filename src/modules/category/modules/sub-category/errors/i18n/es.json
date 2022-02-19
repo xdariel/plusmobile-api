@@ -1,0 +1,5 @@
+{
+  "SubCategoryWithIdDoesNotExist": "SubCategory con id: '%id%' no existe",
+  "SubCategoryNameUsed": "SubCategory con nombre: '%name%' ya se encuentra registrada",
+  "SubCategoryFieldUsed": "Existe en la base de datos el valor: '%value%' para el campo %field%"
+}

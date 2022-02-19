@@ -1,0 +1,6 @@
+{
+  "DiscountCouponWithIdDoesNotExist": "DiscountCoupon con id: '%id%' no existe",
+  "DiscountCouponNameUsed": "DiscountCoupon con nombre: '%name%' ya se encuentra registrada",
+  "DiscountCouponFieldUsed": "Existe en la base de datos el valor: '%value%' para el campo %field%",
+  "PercentageInvalid": "Valor inválido: '%value%' para el porcentaje"
+}

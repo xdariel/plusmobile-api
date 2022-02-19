@@ -1,0 +1,6 @@
+{
+  "TaxesWithIdDoesNotExist": "Taxes con id: '%id%' no existe",
+  "TaxesNameUsed": "Taxes con nombre: '%name%' ya se encuentra registrada",
+  "TaxesFieldUsed": "Existe en la base de datos el valor: '%value%' para el campo %field%",
+  "TaxesFieldInvalidTax":"El valor: %value% es inválido para el campo : %field%"
+}

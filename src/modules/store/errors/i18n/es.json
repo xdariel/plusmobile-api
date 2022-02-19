@@ -1,0 +1,5 @@
+{
+  "StoreWithIdDoesNotExist": "Store con id: '%id%' no existe",
+  "StoreNameUsed": "Store con nombre: '%name%' ya se encuentra registrada",
+  "StoreFieldUsed": "Existe en la base de datos el valor: '%value%' para el campo %field%"
+}

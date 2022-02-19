@@ -1,0 +1,5 @@
+{
+  "BanksWithIdDoesNotExist": "Banks with id: '%id%' does not exists",
+  "BanksNameUsed": "Banks with name: '%name%' already exists",
+  "BanksFieldUsed": "The value: %value% exists in the database, for the field: %field%"
+}

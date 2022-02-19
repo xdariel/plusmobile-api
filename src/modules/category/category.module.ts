@@ -13,6 +13,7 @@ import { TenantModule } from 'src/shared/modules/tenant/tenant.module';
 import { TenantUtils } from 'src/shared/modules/tenant/utils/tenant.utils';
 import { AppCqrsModule } from 'src/shared/modules/app-cqrs/app-cqrs.module';
 import { CategoryEntityService } from './services/category-entity.service';
+import { SubCategoryModule } from './modules/sub-category/sub-category.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { CategoryEntityService } from './services/category-entity.service';
     DataAccessModule,
     TenantModule,
     AppCqrsModule,
+    SubCategoryModule,
   ],
   providers: [
     ...TenantUtils.buildTenantEntityProvider([CategoryFeature]),

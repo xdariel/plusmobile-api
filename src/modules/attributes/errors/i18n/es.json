@@ -1,0 +1,5 @@
+{
+  "AttributesWithIdDoesNotExist": "Attributes con id: '%id%' no existe",
+  "AttributesNameUsed": "Attributes con nombre: '%name%' ya se encuentra registrada",
+  "AttributesFieldUsed": "Existe en la base de datos el valor: '%value%' para el campo %field%"
+}

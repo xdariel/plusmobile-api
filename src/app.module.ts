@@ -10,6 +10,15 @@ import { NotificationModule } from './shared/modules/notification/notification.m
 
 import { FixturesModule } from './shared/modules/fixtures/fixtures.module';
 import { CategoryModule } from './modules/category/category.module';
+import { BrandsModule } from './modules/brands/brands.module';
+import { TaxesModule } from './modules/taxes/taxes.module';
+import { BanksModule } from './modules/banks/banks.module';
+import { VendorsModule } from './modules/vendors/vendors.module';
+import { StoreModule } from './modules/store/store.module';
+import { ProductsModule } from './modules/products/products.module';
+import { AttributesModule } from './modules/attributes/attributes.module';
+import { MembershipModule } from './modules/membership/membership.module';
+import { FaqCategoryModule } from './modules/faq-category/faq-category.module';
 
 
 
@@ -27,6 +36,16 @@ import { CategoryModule } from './modules/category/category.module';
     NotificationModule,
     FixturesModule,
     CategoryModule,
+    BrandsModule,
+    TaxesModule,
+    BanksModule,
+    VendorsModule,
+    StoreModule,
+    ProductsModule,
+    AttributesModule,
+    MembershipModule,
+    FaqCategoryModule
+    
    
   
 

@@ -1,0 +1,5 @@
+{
+  "BrandsWithIdDoesNotExist": "Brands with id: '%id%' does not exists",
+  "BrandsNameUsed": "Brands with name: '%name%' already exists",
+  "BrandsFieldUsed": "The value: %value% exists in the database, for the field: %field%"
+}

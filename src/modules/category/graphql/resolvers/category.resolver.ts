@@ -39,6 +39,9 @@ import { AuthUser } from 'src/shared/modules/auth/types/auth-user.type';
 import { SolvedEntityResponse } from 'src/shared/modules/graphql/dto/responses/solved-entity.response';
 import { UserEntity } from 'src/shared/modules/user/entities/user.entity';
 import { GetOneUserQuery } from 'src/shared/modules/user/cqrs/queries/impl/get-one-user.query';
+import { CloudFileResponse } from 'src/shared/modules/graphql/dto/responses/cloud-file.response';
+import { FilesEntity } from 'src/shared/modules/files/entities/files.entity';
+import { GetOneFilesQuery } from 'src/shared/modules/files/cqrs/queries/impl/get-one-files.query';
 
 
 @Resolver(() => CategoryResponse)
@@ -212,6 +215,27 @@ export class CategoryResolver extends BaseResolver {
             value: user?.username,
           },
         ],
+      };
+    }
+  }
+
+
+  @ResolveField(() => CloudFileResponse, { nullable: true })
+  async banner(@Parent() parent?: CategoryResponse): Promise<CloudFileResponse> {
+    if (parent?.banner) {
+      const logoOrErr = await this._cqrsBus.execQuery<Result<FilesEntity>>(new GetOneFilesQuery({
+        where: {
+          id: { eq: parent.banner.id },
+        },
+      }));
+      if (logoOrErr.isFailure) {
+        return null;
+      }
+      const file = logoOrErr.unwrap();
+      return {
+        id: file.id,
+        key: file.key,
+        url: file.url,
       };
     }
   }
