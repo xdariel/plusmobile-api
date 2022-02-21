@@ -10,6 +10,7 @@ import { IEntity } from '../../../core/interfaces/IEntity';
 import { TenantEntity, TenantFeature } from '../../tenant/entities/tenant.entity';
 import { IFixture, ModelDef } from '../interfaces/IFixture';
 import FIXTURES from '../resources/fixtures';
+import { AppConfigService } from '../../config/service/app-config-service';
 
 @Injectable()
 export class FixtureService implements IFixtureService, OnModuleInit {
@@ -17,6 +18,7 @@ export class FixtureService implements IFixtureService, OnModuleInit {
   protected _logger: Logger;
 
   constructor(private _moduleRef: ModuleRef,
+              private _configService: AppConfigService,
               @Inject(IAppTenantConnectionService.$) private _appTenantCnxService: IAppTenantConnectionService) {
 
     this._logger = new Logger(FixtureService.name);
@@ -31,9 +33,11 @@ export class FixtureService implements IFixtureService, OnModuleInit {
     for (const fix of FIXTURES) {
       await this.setDefaultData<IEntity>(fix);
     }
-    const tenants = await this.getAvailableTenants();
-    for (const t of tenants) {
-      await this.setTenantData(t);
+    if (this._configService.app.multiTenant) {
+      const tenants = await this.getAvailableTenants();
+      for (const t of tenants) {
+        await this.setTenantData(t);
+      }
     }
   }
 

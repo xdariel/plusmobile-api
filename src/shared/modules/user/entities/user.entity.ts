@@ -9,6 +9,12 @@ import { AdditionalInfoEntity } from './schemas/additional-info.schema';
 import { MultiLevelInfo } from './schemas/multilevel-info.schema';
 
 
+export enum UserType {
+  USER = 'USER',
+  PROVIDER = 'PROVIDER',
+  CLIENT = 'CLIENT',
+}
+
 @Schema({ ...SchemaConstants, collection: 'users' })
 
 export class UserEntity extends PersistentEntity {
@@ -19,6 +25,7 @@ export class UserEntity extends PersistentEntity {
   @Prop({ default: true }) verified: boolean;
   @Prop() isActive: boolean;
   @Prop() isAdmin: boolean;
+  @Prop({ type: String }) type: UserType;
   @Prop({ type: [{ type: MSchema.Types.ObjectId, ref: () => RoleEntity }] }) roles?: Array<string>;
   @Prop({ type: MSchema.Types.ObjectId, ref: () => FilesEntity }) avatarFile?: string;
   @Prop() firstname: string;

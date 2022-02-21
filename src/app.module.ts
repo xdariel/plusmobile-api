@@ -19,6 +19,7 @@ import { ProductsModule } from './modules/products/products.module';
 import { AttributesModule } from './modules/attributes/attributes.module';
 import { MembershipModule } from './modules/membership/membership.module';
 import { FaqCategoryModule } from './modules/faq-category/faq-category.module';
+import { MultiLevelModule } from './modules/multi-level/multi-level.module';
 
 
 
@@ -44,8 +45,8 @@ import { FaqCategoryModule } from './modules/faq-category/faq-category.module';
     ProductsModule,
     AttributesModule,
     MembershipModule,
-    FaqCategoryModule
-    
+    FaqCategoryModule,
+    MultiLevelModule
    
   
 

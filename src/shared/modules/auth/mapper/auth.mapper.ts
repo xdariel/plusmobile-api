@@ -17,6 +17,7 @@ export class AuthMapper {
       lastname: userEntity.lastname,
       isActive: userEntity.isActive ?? false,
       isAdmin: userEntity.isAdmin ?? true,
+      type: userEntity.type,
       roles: userRoles ? userRoles.map(({ id, name, permits }) => {
         return {
           id,

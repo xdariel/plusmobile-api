@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { FilterQuery, Model } from 'mongoose';
 import { BaseRepository } from '../../data-access/mongoose/base.respository';
-import { UserEntity } from '../entities/user.entity';
+import { UserEntity, UserType } from '../entities/user.entity';
 import { FilterableFieldsType } from '../../data-access/mongoose/types/filterable-fields.type';
-import { IAssociatedUserFilter } from '../interfaces/IAssociatedUserFilter';
+
 
 @Injectable()
 export class UserRepository extends BaseRepository<UserEntity, FilterableFieldsType<UserEntity>> {
@@ -12,44 +12,6 @@ export class UserRepository extends BaseRepository<UserEntity, FilterableFieldsT
   ) {
     super(_entityRepo, UserRepository.name);
   }
-
-  private processAssociatedFilter(params: IAssociatedUserFilter): FilterQuery<UserEntity> {
-    let filter: FilterQuery<UserEntity> = {
-      'additionalInfo.company': params.company,
-    };
-
-    if (params?.branchOffice) {
-      filter = {
-        ...filter,
-        'additionalInfo.branchOffice': params.branchOffice,
-      };
-    }
-
-    if (params?.campus && !params?.subsidiary) {
-      filter = {
-        ...filter,
-        'additionalInfo.campus': params.campus,
-      };
-    }
-
-    if (params?.subsidiary && !params?.campus) {
-      filter = {
-        ...filter,
-        'additionalInfo.subsidiary': params.subsidiary,
-      };
-    }
-    return filter;
-  }
-
-  async getAssociatedUsers(
-    params: IAssociatedUserFilter,
-  ): Promise<Array<UserEntity>> {
-    const filter = this.processAssociatedFilter(params);
-    const items = await this._model.find(filter)
-      .lean();
-    return items.map(this.transform);
-  }
-
 
   async existsUserWithRefCode(refCode: string): Promise<boolean> {
     return await this._model.exists({
@@ -71,7 +33,7 @@ export class UserRepository extends BaseRepository<UserEntity, FilterableFieldsT
 
     const users = await this._model.find({
       ...filter,
-      'additionalInfo.applyMultiLevel': true,
+      type: UserType.CLIENT,
       'multiLevelInfo.refCode': { $exists: true },
       'multiLevelInfo.sponsorCode': { $exists: true },
     }).lean();
@@ -93,6 +55,5 @@ export class UserRepository extends BaseRepository<UserEntity, FilterableFieldsT
       .lean({ virtuals: true });
     return user ? this.transform(user) : null;
   }
-
 
 }

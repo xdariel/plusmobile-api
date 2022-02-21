@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { BaseEntityService } from '../../../core/class/base.service';
-import { UserEntity, UserFeature } from '../entities/user.entity';
+import { UserEntity, UserFeature, UserType } from '../entities/user.entity';
 import { UserRepository } from '../repositories/user.repository';
 import { Result } from '../../../core/class/result';
 import { UserErrors } from '../errors/user.errors';
@@ -19,9 +19,8 @@ import { OnCreatedUserEvent } from '../cqrs/events/impl/on-created-user-event';
 import { DB_USER } from '../../data-access/availabe-data-access.providers';
 import { DBUser } from '../../data-access/types/db-user.type';
 import { generate } from 'generate-password';
-
-import { IAssociatedUserFilter } from '../interfaces/IAssociatedUserFilter';
-
+import { IMultiLevelNode } from '../../../../modules/multi-level/interfaces/IMultiLevelNode';
+import { GetNodesQuery } from '../../../../modules/multi-level/cqrs/queries/impl/get-nodes.query';
 
 @Injectable()
 export class UserService extends BaseEntityService<UserEntity> implements IUserService {
@@ -50,9 +49,12 @@ export class UserService extends BaseEntityService<UserEntity> implements IUserS
       return Result.Fail(new AppError.ValidationError(`password: isn't complex`));
     }
     entity.password = PasswordUtils.hashPassword(entity.password);
-    entity.verified = entity.isAdmin ? true : false;
+    entity.verified = entity.type === UserType.USER ?
+      entity.isAdmin ? true : false
+      : false;
 
-    if (entity?.additionalInfo && entity.additionalInfo.applyMultiLevel && entity?.multiLevelInfo?.sponsorCode) {
+
+    if (entity.type === UserType.CLIENT && entity?.multiLevelInfo?.sponsorCode) {
       entity.multiLevelInfo = {
         ...entity.multiLevelInfo,
         refCode: generate({ lowercase: false, uppercase: true, symbols: false, length: 7 }),
@@ -86,13 +88,6 @@ export class UserService extends BaseEntityService<UserEntity> implements IUserS
 
 
     if (update?.additionalInfo) {
-      if (update.additionalInfo?.campus) {
-        update.additionalInfo.subsidiary = null;
-      }
-
-      if (update.additionalInfo?.subsidiary) {
-        update.additionalInfo.campus = null;
-      }
       update.additionalInfo = merge(user.additionalInfo, update.additionalInfo);
     }
 
@@ -279,8 +274,24 @@ export class UserService extends BaseEntityService<UserEntity> implements IUserS
   }
 
 
+  async getAvailableSponsors(userId?: string): Promise<Result<Array<UserEntity>>> {
+    try {
+      let excludeIds = [];
+      if (userId) {
+        const nodesOrErr = await this._cqrsBus.execQuery<Result<Array<IMultiLevelNode>>>(new GetNodesQuery({ userId }));
 
-  
+        if (nodesOrErr.isFailure) {
+          return Result.Fail(nodesOrErr.unwrapError());
+        }
+        excludeIds = nodesOrErr.unwrap().map(x => x.userId);
+      }
+
+      const users = await this._userRepo.getMultiLevelUsers({ id: { notIn: excludeIds } });
+      return Result.Ok(users);
+    } catch (err) {
+      return Result.Fail(new AppError.UnexpectedError(err));
+    }
+  }
 
 
 }

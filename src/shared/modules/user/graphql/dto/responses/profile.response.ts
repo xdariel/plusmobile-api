@@ -2,6 +2,7 @@ import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
 
 import { Gender, DocumentTypeUser } from '../../../entities/schemas/profile.schema';
 import { SolvedEntityResponse } from '../../../../graphql/dto/responses/solved-entity.response';
+import { Prop } from '@nestjs/mongoose';
 
 registerEnumType(Gender, { name: 'Gender' });
 registerEnumType(DocumentTypeUser, { name: 'DocumentTypeUser' });
@@ -23,7 +24,11 @@ export class ProfileResponse {
   @Field({ nullable: true }) tronWallet?: string;
   @Field({ nullable: true }) phoneNumber?: string;
   @Field({ nullable: true }) aboutMe?: string;
-  @Field({ nullable: true }) salary?: number;
+
+  @Field({ nullable: true }) whatsapp?: string;
+  @Field({ nullable: true }) facebook?: string;
+  @Field({ nullable: true }) twitter?: string;
+  @Field({ nullable: true }) instagram?: string;
 
   @Field(() => SolvedEntityResponse, { nullable: true }) area?: SolvedEntityResponse;
   @Field(() => SolvedEntityResponse, { nullable: true }) position?: SolvedEntityResponse;

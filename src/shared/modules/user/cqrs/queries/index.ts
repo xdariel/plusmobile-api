@@ -3,6 +3,7 @@ import { GetAllUsersQueryHandler } from './handler/get-all-users-query.handler';
 import { GetOneUserQueryHandler } from './handler/get-one-user-query.handler';
 import { GetPaginatedUsersQueryHandler } from './handler/get-paginated-users-query.handler';
 import { GetUserByRefCodeQueryHandler } from './handler/get-user-by-ref-code-query.handler';
+import { GetAvailableSponsorsQueryHandler } from './handler/get-available-sponsors-query.handler';
 
 export const UserQueryHandlers = [
   GetAllUsersQueryHandler,
@@ -10,4 +11,5 @@ export const UserQueryHandlers = [
   GetPaginatedUsersQueryHandler,
   CountUsersQueryHandler,
   GetUserByRefCodeQueryHandler,
+  GetAvailableSponsorsQueryHandler
 ];

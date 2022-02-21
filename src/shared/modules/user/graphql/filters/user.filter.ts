@@ -10,8 +10,9 @@ export class UserFilter implements IEntityFilter<UserEntity> {
   @FilterableField(() => ID, { nullable: true }) id?: string;
   @FilterableField(() => String, { nullable: true }) email?: string;
   @FilterableField(() => String, { nullable: true }) username?: string;
-  @FilterableField(() => String, { nullable: true }) verified?: boolean;
+  @FilterableField(() => Boolean, { nullable: true }) verified?: boolean;
   @FilterableField(() => String, { nullable: true }) firstname?: string;
+  @FilterableField(() => String, { nullable: true }) type?: string;
   @FilterableField(() => Boolean, { nullable: true }) isActive?: boolean;
   @FilterableField(() => Boolean, { nullable: true }) isAdmin?: boolean;
   @FilterableField(() => Date, { nullable: true }) lastLogin?: Date;

@@ -44,11 +44,6 @@ export class UserMapper extends BaseMapper<UserEntity> {
       },
       additionalInfo: {
         ...additionalInfo,
-        company: additionalInfo?.company ? { id: additionalInfo.company } : undefined,
-        branchOffice: additionalInfo?.branchOffice ? { id: additionalInfo.branchOffice } : undefined,
-        campus: additionalInfo?.campus ? { id: additionalInfo.campus } : undefined,
-        subsidiary: additionalInfo?.subsidiary ? { id: additionalInfo.subsidiary } : undefined,
-
       },
       multiLevelInfo: {
         ...multiLevelInfo,

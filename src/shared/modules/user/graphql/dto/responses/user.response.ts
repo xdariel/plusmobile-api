@@ -1,10 +1,13 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field, ID, registerEnumType } from '@nestjs/graphql';
 import { ProfileResponse } from './profile.response';
 import { SolvedEntityResponse } from 'src/shared/modules/graphql/dto/responses/solved-entity.response';
 import { CloudFileResponse } from '../../../../graphql/dto/responses/cloud-file.response';
 import { AdditionalInfoResponse } from './additional-info.response';
 import { MultiLevelInfoResponse } from './multilevel-info.response';
+import { UserType } from '../../../entities/user.entity';
 
+
+registerEnumType(UserType, { name: 'UserType' });
 
 @ObjectType()
 export class UserResponse {
@@ -17,6 +20,7 @@ export class UserResponse {
   @Field() firstname: string;
   @Field({ nullable: true }) lastname?: string;
   @Field(() => Boolean) verified: boolean;
+  @Field(() => UserType, { nullable: true }) type: UserType;
   @Field(() => Boolean, { nullable: true }) isActive: boolean;
   @Field(() => Boolean, { nullable: true }) isAdmin: boolean;
   @Field(() => [SolvedEntityResponse]) roles: Array<SolvedEntityResponse>;

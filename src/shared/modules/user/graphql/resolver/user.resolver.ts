@@ -43,6 +43,7 @@ import { UpdateMeInput, UpdateUserInput } from '../dto/input/update-user.input';
 import { DeleteManyUserInput } from '../dto/input/delete-many-user.input';
 import { DeleteManyUserCommand } from '../../cqrs/commands/impl/delete-many-user.command';
 import { GetAvailableSponsorsInput } from '../dto/input/get-available-sponsors.input';
+import { GetAvailableSponsorsQuery } from '../../cqrs/queries/impl/get-available-sponsors.query';
 
 
 @Resolver(() => UserResponse)
@@ -119,6 +120,16 @@ export class UserResolver extends BaseResolver {
   }
 
 
+  @UseGuards(GqlAuthGuard)
+  @Query(() => [UserResponse])
+  async getAvailableSponsors(
+    @Args('input', { nullable: true }) input: GetAvailableSponsorsInput,
+    @CurrentLanguage() lang?: string,
+  ): Promise<Array<UserResponse>> {
+    const resp = await this._cqrsBus.execQuery<Result<Array<UserEntity>>>(new GetAvailableSponsorsQuery(input));
+    if (resp.isFailure) this.handleErrors(resp.unwrapError(), lang);
+    return resp.unwrap().map(this._userMapper.persistent2Dto);
+  }
 
 
   @UseGuards(GqlAuthGuard)

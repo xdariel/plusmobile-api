@@ -18,6 +18,9 @@ export class OrderByUserInput extends BaseInput {
   username?: OrderByType;
 
   @Field(() => OrderByType, { nullable: true })
+  type?: OrderByType;
+
+  @Field(() => OrderByType, { nullable: true })
   firstname?: OrderByType;
 
 

@@ -1,4 +1,5 @@
 import { PermitsType } from '../../../resources/permits.type';
+import { UserType } from '../../user/entities/user.entity';
 
 export type AuthPermit = PermitsType
 
@@ -20,6 +21,7 @@ export type AuthUser = {
   verified: boolean;
   isActive: boolean;
   isAdmin: boolean;
+  type: UserType,
   avatarFile?: {
     id: string
     key?: string;

@@ -1,12 +1,13 @@
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 import { ContextId, ModuleRef } from '@nestjs/core';
 import { OnCreatedTenantEvent } from '../impl/on-created-tenant-event';
-import { first} from 'lodash';
+import { first } from 'lodash';
 import { IAppCQRSBus } from '../../../../app-cqrs/interfaces/IAppCQRSBus';
 import { AppCQRSBus } from '../../../../app-cqrs/services/AppCQRSBus';
 import { SetDefaultDataCommand } from '../../../../fixtures/cqrs/commands/impl/set-default-data.command';
 import { CreateUserCommand } from '../../../../user/cqrs/commands/impl/create-user.command';
 import { UniqueEntityID } from '../../../../data-access/mongoose/UniqueEntityID';
+import { UserType } from '../../../../user/entities/user.entity';
 
 
 @EventsHandler(OnCreatedTenantEvent)
@@ -32,6 +33,7 @@ export class OnCreatedTenantEventHandler implements IEventHandler<OnCreatedTenan
         verified: false,
         isActive: true,
         isAdmin: true,
+        type: UserType.USER,
         username: first(request.info.responsible.email.split('@')),
         password: 'Admin@123',
         roles: [],

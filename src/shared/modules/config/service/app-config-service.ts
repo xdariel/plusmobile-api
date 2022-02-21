@@ -23,71 +23,102 @@ export class AppConfigService {
   constructor(private readonly _configService: ConfigService) {
   }
 
-  app: IAppConfig = {
-    cors: this._configService.get<boolean>('app.cors'),
-    port: this._configService.get<number>('app.port'),
-    nodeEnv: this._configService.get<string>('app.nodeEnv'),
-    logLevel: getLogLevel(this._configService.get<string>('app.logLevel')),
-    jwtSecret: this._configService.get<string>('app.jwtSecret'),
-    jwtExpiration: this._configService.get<string>('app.jwtExpiration'),
-    frontDomain: this._configService.get<string>('app.frontDomain'),
-    name: this._configService.get<string>('app.name', 'dddApp'),
-    multiTenant: this._configService.get<boolean>('app.multiTenant', false),
-    apiKey: this._configService.get<string>('app.apiKey'),
+  processBoolean(value?: string | boolean): boolean {
+    if (!value) {
+      return false;
+    }
+    if (typeof value === 'boolean') {
+      return value;
+    }
+
+    if (typeof value === 'string') {
+      return value === 'true';
+    }
+    return false;
+
+  }
+
+  get app(): IAppConfig {
+    return {
+      cors: this.processBoolean(this._configService.get<boolean>('app.cors')),
+      port: this._configService.get<number>('app.port'),
+      nodeEnv: this._configService.get<string>('app.nodeEnv'),
+      logLevel: getLogLevel(this._configService.get<string>('app.logLevel')),
+      jwtSecret: this._configService.get<string>('app.jwtSecret'),
+      jwtExpiration: this._configService.get<string>('app.jwtExpiration'),
+      frontDomain: this._configService.get<string>('app.frontDomain'),
+      name: this._configService.get<string>('app.name', 'dddApp'),
+      multiTenant: this.processBoolean(this._configService.get<boolean>('app.multiTenant', false)),
+      apiKey: this._configService.get<string>('app.apiKey'),
+    };
 
   };
 
-  database: IDataBaseConfig = {
-    connectString: this._configService.get<string>('database.connectString'),
-    mainDbName: this._configService.get<string>('database.mainDbName'),
-    getTenantConnectString(dbName?: string): string {
-      if (!dbName) {
-        dbName = this.mainDbName;
-      }
-      return String(this.connectString).replace(
-        '[[dbname]]',
-        dbName,
-      );
-    },
+  get database(): IDataBaseConfig {
+    return {
+      connectString: this._configService.get<string>('database.connectString'),
+      mainDbName: this._configService.get<string>('database.mainDbName'),
+      getTenantConnectString(dbName?: string): string {
+        if (!dbName) {
+          dbName = this.mainDbName;
+        }
+        return String(this.connectString).replace(
+          '[[dbname]]',
+          dbName,
+        );
+      },
+    };
   };
 
-  graphql: IGraphqlConfig = {
-    schema: this._configService.get<string>('graphql.schema'),
-    maxFiles: this._configService.get<number>('graphql.maxFiles'),
-    maxFileSize: this._configService.get<number>('graphql.maxFileSize'),
-    depthLimit: this._configService.get<number>('graphql.depthLimit'),
+  get graphql(): IGraphqlConfig {
+    return {
+      schema: this._configService.get<string>('graphql.schema'),
+      maxFiles: this._configService.get<number>('graphql.maxFiles'),
+      maxFileSize: this._configService.get<number>('graphql.maxFileSize'),
+      depthLimit: this._configService.get<number>('graphql.depthLimit'),
+    };
   };
 
-  smtp: IMessageConfig = {
-    host: this._configService.get<string>('message.host'),
-    port: this._configService.get<number>('message.port'),
-    user: this._configService.get<string>('message.email'),
-    pass: this._configService.get<string>('message.password'),
-    emailValidationUrl: this._configService.get<string>('message.emailValidationUrl'),
-    emailTemplatePath: this._configService.get<string>('message.emailTemplatePath'),
+  get smtp(): IMessageConfig {
+    return {
+      host: this._configService.get<string>('message.host'),
+      port: this._configService.get<number>('message.port'),
+      user: this._configService.get<string>('message.email'),
+      pass: this._configService.get<string>('message.password'),
+      emailValidationUrl: this._configService.get<string>('message.emailValidationUrl'),
+      emailTemplatePath: this._configService.get<string>('message.emailTemplatePath'),
+    };
   };
 
-  redis: IRedisConfig = {
-    host: this._configService.get<string>('redis.host'),
-    port: this._configService.get<number>('redis.port'),
-    password: this._configService.get<string>('redis.password'),
+  get redis(): IRedisConfig {
+    return {
+      host: this._configService.get<string>('redis.host'),
+      port: this._configService.get<number>('redis.port'),
+      password: this._configService.get<string>('redis.password'),
+    };
   };
 
-  aws: IAWSConfig = {
-    keyId: this._configService.get<string>('aws.keyId'),
-    keySecret: this._configService.get<string>('aws.keySecret'),
-    bucket: this._configService.get<string>('aws.bucket'),
-    region: this._configService.get<string>('aws.region'),
-    cdnUrl: this._configService.get<string>('aws.cdnUrl'),
+  get aws(): IAWSConfig {
+    return {
+      keyId: this._configService.get<string>('aws.keyId'),
+      keySecret: this._configService.get<string>('aws.keySecret'),
+      bucket: this._configService.get<string>('aws.bucket'),
+      region: this._configService.get<string>('aws.region'),
+      cdnUrl: this._configService.get<string>('aws.cdnUrl'),
+    };
   };
 
-  externalApi: IExternalAPI = {
-    apiKey: this._configService.get<string>('externalApi.apiKey'),
-    urlBase: this._configService.get<string>('externalApi.urlBase'),
-    apiWebApp: this._configService.get<string>('externalApi.apiWebApp'),
+  get externalApi(): IExternalAPI {
+    return {
+      apiKey: this._configService.get<string>('externalApi.apiKey'),
+      urlBase: this._configService.get<string>('externalApi.urlBase'),
+      apiWebApp: this._configService.get<string>('externalApi.apiWebApp'),
+    };
   };
 
-  reports: IReportConfig = {
-    fontPath: this._configService.get<string>('reports.fontPath'),
+  get reports(): IReportConfig {
+    return {
+      fontPath: this._configService.get<string>('reports.fontPath'),
+    };
   };
 }

@@ -9,15 +9,13 @@ export enum Gender {
   TRANS_GENDER = 'TRANS_GENDER',
   NOT_SPECIFIED = 'NOT_SPECIFIED'
 }
+
 export enum DocumentTypeUser {
   ID_CARD = 'ID_CARD',
   PASSPORT = 'PASSPORT',
   FOREIGN_CERTIFICATE = 'FOREIGN_CERTIFICATE',
   PEP = 'PEP'
 }
-
-
-
 
 
 export class ProfileEntity {
@@ -30,6 +28,7 @@ export class ProfileEntity {
   @Prop() zipCode?: string;
 
   @Prop() city?: string;
+  @Prop() aboutMe?: string;
 
   @Prop() address?: string;
   @Prop() state?: string;
@@ -38,6 +37,11 @@ export class ProfileEntity {
   @Prop() btcWallet?: string;
   @Prop() tronWallet?: string;
   @Prop() phoneNumber?: string;
+
+  @Prop() whatsapp?: string;
+  @Prop() facebook?: string;
+  @Prop() twitter?: string;
+  @Prop() instagram?: string;
 
   @Prop({ type: MSchema.Types.ObjectId, ref: () => UserAreaEntity }) area?: string;
   @Prop({ type: MSchema.Types.ObjectId, ref: () => UserPositionEntity }) position?: string;

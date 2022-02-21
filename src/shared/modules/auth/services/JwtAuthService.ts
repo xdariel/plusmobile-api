@@ -19,7 +19,7 @@ import { Connection } from 'mongoose';
 import { TenantEntity } from '../../tenant/entities/tenant.entity';
 import { GetOneTenantQuery } from '../../tenant/cqrs/queries/impl/get-one-tenant.query';
 import { GetTenantConnectionQuery } from '../../tenant/cqrs/queries/impl/get-tenant-connection.query';
-import { UserEntity } from '../../user/entities/user.entity';
+import { UserEntity, UserType } from '../../user/entities/user.entity';
 import { FilterableFieldsType } from '../../data-access/mongoose/types/filterable-fields.type';
 import { AuthErrors } from '../errors/auth.errors';
 import { TENANT } from '../../tenant/providers/tenant.providers';
@@ -147,6 +147,7 @@ export class JwtAuthService implements IJwtAuthService {
         verified: false,
         isAdmin: false,
         isActive: true,
+        type: UserType.CLIENT,
       });
 
       if (createResultOrErr.isFailure) {
@@ -207,7 +208,7 @@ export class JwtAuthService implements IJwtAuthService {
 
       let roles: Array<RoleEntity> = [];
       if (!user.isAdmin) {
-        const rolesOrErr = await this._userService.getUserRolesByConnection(user.id, tenantConnection.unwrap() );
+        const rolesOrErr = await this._userService.getUserRolesByConnection(user.id, tenantConnection.unwrap());
         if (rolesOrErr.isFailure) {
           return Result.Fail(rolesOrErr.unwrapError());
         }

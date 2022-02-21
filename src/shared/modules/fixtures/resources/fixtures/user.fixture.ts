@@ -1,5 +1,5 @@
 import { IFixture } from '../../interfaces/IFixture';
-import { UserEntity, UserFeature } from '../../../user/entities/user.entity';
+import { UserEntity, UserFeature, UserType } from '../../../user/entities/user.entity';
 import { ModelDefinition } from '@nestjs/mongoose';
 import { UniqueEntityID } from '../../../data-access/mongoose/UniqueEntityID';
 import { Gender } from '../../../user/entities/schemas/profile.schema';
@@ -17,6 +17,7 @@ export const userFixture: IFixture<UserEntity, ModelDefinition> = {
       firstname: 'Dariel',
       lastname: 'Noa',
       password: PasswordUtils.hashPassword('Admin@123'),
+      type: UserType.USER,
       isActive: true,
       isAdmin: true,
       verified: true,
@@ -37,14 +38,23 @@ export const userFixture: IFixture<UserEntity, ModelDefinition> = {
       firstname: 'Gabriel',
       lastname: 'Ureña',
       password: PasswordUtils.hashPassword('Admin@123'),
+      type: UserType.CLIENT,
       isActive: true,
-      isAdmin: true,
+      isAdmin: false,
       verified: true,
       roles: [],
       profile: {
         country: 'Colombia',
         gender: Gender.MALE,
       },
+
+      additionalInfo:{
+        applyMultiLevel: true
+      },
+      multiLevelInfo: {
+        refCode: "MAIN",
+        sponsorCode: "MAIN_SPONSOR"
+      }
     },
 
     {
@@ -54,12 +64,13 @@ export const userFixture: IFixture<UserEntity, ModelDefinition> = {
       firstname: 'Leonardo',
       lastname: 'Rios',
       password: PasswordUtils.hashPassword('Admin@123'),
+      type: UserType.PROVIDER,
       isActive: true,
-      isAdmin: true,
+      isAdmin: false,
       verified: true,
       roles: [],
       profile: {
-        country: 'Colombia',
+        country: 'Venezuela',
         gender: Gender.MALE,
       },
     },

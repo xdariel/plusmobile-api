@@ -4,6 +4,7 @@ import { ProfileInput } from './profile.input';
 import { BaseInput } from '../../../../../dto/base-input.dto';
 import { AdditionalInfoInput } from './additional-info.input';
 import { MultiLevelInfoInput } from './multilevel-info.input';
+import { UserType } from '../../../entities/user.entity';
 
 
 @InputType()
@@ -14,6 +15,7 @@ export class CreateUserInput extends BaseInput {
   @Field() firstname: string;
   @Field({ nullable: true }) lastname?: string;
   @Field(() => [ID]) roles: Array<string>;
+  @Field(() => UserType, { nullable: true }) type: UserType;
   @Field(() => ProfileInput, { nullable: true }) profile?: ProfileInput;
   @Field(() => AdditionalInfoInput, { nullable: true }) additionalInfo?: AdditionalInfoInput;
   @Field(() => MultiLevelInfoInput, { nullable: true }) multiLevelInfo?: MultiLevelInfoInput;

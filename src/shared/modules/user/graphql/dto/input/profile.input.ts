@@ -21,6 +21,11 @@ export class ProfileInput {
   @Field({ nullable: true }) phoneNumber?: string;
   @Field({ nullable: true }) aboutMe?: string;
 
+  @Field({ nullable: true }) whatsapp?: string;
+  @Field({ nullable: true }) facebook?: string;
+  @Field({ nullable: true }) twitter?: string;
+  @Field({ nullable: true }) instagram?: string;
+
   @Field(() => ID, { nullable: true }) area?: string;
   @Field(() => ID, { nullable: true }) position?: string;
 

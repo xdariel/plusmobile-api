@@ -1,0 +1,5 @@
+{
+  "MultiLevelWithIdDoesNotExist": "MultiLevel with id: '%id%' does not exists",
+  "MultiLevelNameUsed": "MultiLevel with name: '%name%' already exists",
+  "MultiLevelFieldUsed": "The value: %value% exists in the database, for the field: %field%"
+}
